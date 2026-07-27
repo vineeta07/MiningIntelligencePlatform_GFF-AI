@@ -55,10 +55,10 @@ backend/
 Contains the FastAPI application, API routes, database models, services, and application logic.
 
 frontend/
-Contains the React application, user interface components, pages, and client-side functionality.
+Contains the React application, user interface components, pages, and client side functionality.
 
 This project has been developed with a modular architecture to allow future enhancements such as AI-powered equipment monitoring, predictive maintenance, real-time alerts, computer vision integration, and advanced worker safety analytics.
 
-The repository contains both the frontend and backend source code, making it easy to set up, modify, and extend the application for future development or integration with other systems.
+The repository contains both the frontend and backend source code making it easy to set up, modify, and extend the application for future development or integration with other systems.
 
 This project was created as part of a practical learning experience in full-stack application development, focusing on building scalable software using modern web technologies while addressing real-world industrial monitoring and worker safety requirements.

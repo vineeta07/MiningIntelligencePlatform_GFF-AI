@@ -66,4 +66,4 @@ The frontend will be accessible at [http://localhost:3000](http://localhost:3000
 
 ## 📄 License
 
-© 2025 Mining Intelligence Platform. All rights reserved.
+© 2026 Mining Intelligence Platform. All rights reserved.
