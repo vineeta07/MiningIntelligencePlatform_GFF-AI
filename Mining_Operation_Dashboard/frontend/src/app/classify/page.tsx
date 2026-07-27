@@ -69,7 +69,78 @@ export default function ClassifyPage() {
     operator_name: "",
     notes: "",
   });
+  const [isFetchingGps, setIsFetchingGps] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const fetchGpsLocation = useCallback(async () => {
+    setIsFetchingGps(true);
+
+    const tryIpGeolocation = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.latitude && data.longitude) {
+            setMetadata((prev) => ({
+              ...prev,
+              gps_latitude: Number(data.latitude).toFixed(6),
+              gps_longitude: Number(data.longitude).toFixed(6),
+              region: prev.region || [data.city, data.region, data.country_name].filter(Boolean).join(", "),
+            }));
+            setIsFetchingGps(false);
+            return true;
+          }
+        }
+      } catch {
+        try {
+          const res2 = await fetch("http://ip-api.com/json/");
+          if (res2.ok) {
+            const data2 = await res2.json();
+            if (data2.lat && data2.lon) {
+              setMetadata((prev) => ({
+                ...prev,
+                gps_latitude: Number(data2.lat).toFixed(6),
+                gps_longitude: Number(data2.lon).toFixed(6),
+                region: prev.region || [data2.city, data2.regionName, data2.country].filter(Boolean).join(", "),
+              }));
+              setIsFetchingGps(false);
+              return true;
+            }
+          }
+        } catch {
+          // ignore
+        }
+      }
+      return false;
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setMetadata((prev) => ({
+            ...prev,
+            gps_latitude: position.coords.latitude.toFixed(6),
+            gps_longitude: position.coords.longitude.toFixed(6),
+          }));
+          setIsFetchingGps(false);
+        },
+        async () => {
+          const success = await tryIpGeolocation();
+          if (!success) {
+            alert("Could not detect location. Please enter coordinates manually.");
+            setIsFetchingGps(false);
+          }
+        },
+        { enableHighAccuracy: false, timeout: 4000 }
+      );
+    } else {
+      const success = await tryIpGeolocation();
+      if (!success) {
+        alert("Could not detect location. Please enter coordinates manually.");
+        setIsFetchingGps(false);
+      }
+    }
+  }, []);
 
   const handleFile = useCallback((file: File) => {
     if (!file.type.startsWith("image/")) return;
@@ -221,10 +292,21 @@ export default function ClassifyPage() {
               transition={{ delay: 0.2 }}
               className="glass-card p-6"
             >
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2" style={{ color: "var(--color-text-primary)" }}>
-                <MapPin className="w-4 h-4" style={{ color: "var(--color-terra)" }} />
-                Geological Metadata
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2" style={{ color: "var(--color-text-primary)" }}>
+                  <MapPin className="w-4 h-4" style={{ color: "var(--color-terra)" }} />
+                  Geological Metadata
+                </h3>
+                <button
+                  type="button"
+                  onClick={fetchGpsLocation}
+                  disabled={isFetchingGps}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors disabled:opacity-50"
+                  title="Detect location automatically via GPS or IP"
+                >
+                  {isFetchingGps ? "Detecting Location..." : "Auto-Detect GPS"}
+                </button>
+              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>

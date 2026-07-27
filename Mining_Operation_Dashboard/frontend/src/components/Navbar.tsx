@@ -58,23 +58,23 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center"
+              className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm transition-transform group-hover:scale-105"
               style={{ background: "var(--color-crimson)" }}
             >
-              <Gem className="w-5 h-5 text-white" />
+              <Gem className="w-6 h-6 text-white" />
             </div>
             <div className="hidden sm:block">
               <div
-                className="text-sm font-bold tracking-tight leading-none"
+                className="text-base font-bold tracking-tight leading-none"
                 style={{ color: "var(--color-text-primary)" }}
               >
                 MIP
               </div>
               <div
-                className="text-[10px] font-medium tracking-widest uppercase"
+                className="text-[11px] font-semibold tracking-wider uppercase mt-0.5"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                Mining Intelligence
+                Mining Intelligence Platform
               </div>
             </div>
           </Link>

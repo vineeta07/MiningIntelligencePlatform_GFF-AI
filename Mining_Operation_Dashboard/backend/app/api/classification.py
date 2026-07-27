@@ -102,18 +102,35 @@ async def save_classification_background(
             print(f"[Warning] Background DB save failed: {e}")
             db_id = unique_id
 
-    # 3. Log to MongoDB telemetry
+    # 3. Log to MongoDB telemetry (Full Geological Metadata)
     try:
         await classification_history_collection.insert_one({
             "result_id": db_id,
             "predicted_class": result["predicted_class"],
             "confidence": result["confidence"],
+            "all_probabilities": result["all_probabilities"],
+            "geological_metadata": {
+                "mine_name": mine_name,
+                "region": region,
+                "gps_latitude": gps_latitude,
+                "gps_longitude": gps_longitude,
+                "operator_name": operator_name,
+                "device_id": device_id,
+                "notes": notes,
+            },
             "mine_name": mine_name,
             "region": region,
+            "gps_latitude": gps_latitude,
+            "gps_longitude": gps_longitude,
+            "operator_name": operator_name,
+            "device_id": device_id,
+            "notes": notes,
+            "original_image_url": original_key,
+            "gradcam_image_url": gradcam_key,
             "timestamp": datetime.utcnow(),
         })
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[Warning] MongoDB telemetry save failed: {e}")
 
 
 @router.post("/", summary="Classify a rock image")
