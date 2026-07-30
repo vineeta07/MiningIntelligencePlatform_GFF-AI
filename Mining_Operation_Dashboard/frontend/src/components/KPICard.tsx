@@ -14,10 +14,10 @@ interface KPICardProps {
 }
 
 const colorMap = {
-  crimson: "var(--color-pastel-red)",
-  terra: "var(--color-pastel-blue)",
-  amber: "var(--color-pastel-yellow)",
-  olive: "var(--color-pastel-green)",
+  crimson: "#FAD2E1", // Soft Pastel Blush Pink
+  terra: "#D6E2E9",   // Soft Pastel Ice Blue
+  amber: "#FFF1E6",   // Soft Pastel Warm Peach
+  olive: "#D8F3DC",   // Soft Pastel Mint Green
 };
 
 export default function KPICard({
@@ -38,30 +38,31 @@ export default function KPICard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: delay * 0.1, ease: [0.4, 0, 0.2, 1] }}
-      className="inner-card flex flex-col justify-between h-full min-h-[140px]"
+      className="inner-card flex flex-col justify-between h-full min-h-[140px] shadow-sm border border-white/40"
       style={{ backgroundColor: bg }}
     >
       <div className="flex items-start justify-between mb-2">
-        <div className="w-10 h-10 rounded-2xl bg-white bg-opacity-60 flex items-center justify-center text-gray-800 shadow-sm">
-          <Icon className="w-5 h-5" />
+        <div className="w-10 h-10 rounded-2xl bg-white/80 border border-white/80 flex items-center justify-center text-slate-800 shadow-sm">
+          <Icon className="w-5 h-5 text-slate-800" />
         </div>
         {change !== undefined && (
-          <div className="flex items-center gap-1 text-[10px] font-bold bg-white bg-opacity-60 px-2 py-1 rounded-full text-gray-700 shadow-sm">
-            {isPositive ? <TrendingUp className="w-3 h-3 text-green-600" /> : isNegative ? <TrendingDown className="w-3 h-3 text-red-500" /> : <Minus className="w-3 h-3 text-gray-400" />}
+          <div className="flex items-center gap-1 text-[10px] font-bold bg-white/80 border border-white/80 px-2.5 py-1 rounded-full text-slate-800 shadow-sm">
+            {isPositive ? <TrendingUp className="w-3 h-3 text-emerald-600" /> : isNegative ? <TrendingDown className="w-3 h-3 text-rose-600" /> : <Minus className="w-3 h-3 text-slate-400" />}
             {Math.abs(change).toFixed(1)}%
           </div>
         )}
       </div>
 
       <div>
-        <div className="text-xs font-semibold text-gray-500 mb-0.5">{title}</div>
+        <div className="text-xs font-semibold text-slate-600 mb-0.5">{title}</div>
         <div className="flex items-baseline gap-1">
-          <span className="text-2xl font-bold text-gray-900 tracking-tight">
+          <span className="text-2xl font-bold text-slate-900 tracking-tight">
             {typeof value === "number" ? value.toLocaleString() : value}
           </span>
-          {unit && <span className="text-xs font-semibold text-gray-500">{unit}</span>}
+          {unit && <span className="text-xs font-semibold text-slate-600">{unit}</span>}
         </div>
       </div>
     </motion.div>
   );
 }
+

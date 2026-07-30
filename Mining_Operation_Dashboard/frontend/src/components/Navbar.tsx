@@ -32,12 +32,6 @@ const navItems = [
     icon: Activity,
     description: "Trends & Reports",
   },
-  {
-    label: "Documentation",
-    href: "/docs",
-    icon: FileText,
-    description: "System Documentation",
-  },
 ];
 
 export default function Navbar() {
@@ -57,11 +51,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm transition-transform group-hover:scale-105"
-              style={{ background: "var(--color-crimson)" }}
-            >
-              <Gem className="w-6 h-6 text-white" />
+            <div className="w-11 h-11 rounded-xl bg-slate-900/90 border border-slate-800 p-1 flex items-center justify-center shadow-sm transition-transform group-hover:scale-105">
+              <img 
+                src="/logo_mip.png" 
+                alt="MIP Logo" 
+                className="w-full h-full object-contain" 
+              />
             </div>
             <div className="hidden sm:block">
               <div

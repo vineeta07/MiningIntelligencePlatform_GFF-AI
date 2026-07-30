@@ -45,10 +45,10 @@ function generateMockKPIs() {
       risk_index: +(0.1 + Math.random() * 0.3).toFixed(2),
       workers_on_site: Math.floor(120 + Math.random() * 160),
       zones: [
-        { name: "Zone A — Open Pit", risk: "LOW", workers: Math.floor(30 + Math.random() * 30) },
-        { name: "Zone B — Processing", risk: "MEDIUM", workers: Math.floor(40 + Math.random() * 40) },
-        { name: "Zone C — Underground", risk: Math.random() > 0.5 ? "HIGH" : "MEDIUM", workers: Math.floor(20 + Math.random() * 30) },
-        { name: "Zone D — Storage", risk: "LOW", workers: Math.floor(10 + Math.random() * 20) },
+        { name: "Zone A • Open Pit", risk: "LOW", workers: Math.floor(30 + Math.random() * 30) },
+        { name: "Zone B • Processing", risk: "MEDIUM", workers: Math.floor(40 + Math.random() * 40) },
+        { name: "Zone C • Underground", risk: Math.random() > 0.5 ? "HIGH" : "MEDIUM", workers: Math.floor(20 + Math.random() * 30) },
+        { name: "Zone D • Storage", risk: "LOW", workers: Math.floor(10 + Math.random() * 20) },
       ],
     },
   };
@@ -68,9 +68,9 @@ function generateMockMachines() {
 
 function generateMockInsights() {
   return [
-    { id: "INS-001", severity: "WARNING" as const, title: "Excavator EXC-001 — Predictive Maintenance Alert", description: "Hydraulic pressure trending 12% below baseline. Predicted failure window: 48-72 hours. Schedule maintenance to avoid unplanned downtime.", category: "EQUIPMENT", timestamp: new Date().toISOString(), confidence: 0.87 },
-    { id: "INS-002", severity: "INFO" as const, title: "Ore Grade Improvement — Zone A", description: "Classification data indicates 8% increase in high-grade ore samples from Zone A over the past 7 days. Consider allocating additional processing capacity.", category: "PRODUCTION", timestamp: new Date().toISOString(), confidence: 0.92 },
-    { id: "INS-003", severity: "CRITICAL" as const, title: "Safety Zone C — Elevated Risk Index", description: "Underground Zone C risk index has exceeded threshold (0.35). Recommend reducing active worker count and initiating safety protocol review.", category: "SAFETY", timestamp: new Date().toISOString(), confidence: 0.94 },
+    { id: "INS-001", severity: "WARNING" as const, title: "Excavator EXC-001 • Predictive Maintenance Alert", description: "Hydraulic pressure trending 12% below baseline. Predicted failure window: 48-72 hours. Schedule maintenance to avoid unplanned downtime.", category: "EQUIPMENT", timestamp: new Date().toISOString(), confidence: 0.87 },
+    { id: "INS-002", severity: "INFO" as const, title: "Ore Grade Improvement • Zone A", description: "Classification data indicates 8% increase in high-grade ore samples from Zone A over the past 7 days. Consider allocating additional processing capacity.", category: "PRODUCTION", timestamp: new Date().toISOString(), confidence: 0.92 },
+    { id: "INS-003", severity: "CRITICAL" as const, title: "Safety Zone C • Elevated Risk Index", description: "Underground Zone C risk index has exceeded threshold (0.35). Recommend reducing active worker count and initiating safety protocol review.", category: "SAFETY", timestamp: new Date().toISOString(), confidence: 0.94 },
     { id: "INS-004", severity: "INFO" as const, title: "Energy Optimization Opportunity", description: "Night shift energy consumption is 23% higher than optimal. Adjusting crusher scheduling could save ~4,200 kWh/day.", category: "ENERGY", timestamp: new Date().toISOString(), confidence: 0.78 },
   ];
 }
@@ -166,10 +166,10 @@ export default function DashboardPage() {
 
   const trendTonnage = trends.map((t) => t.tonnage);
   const trendUtil = trends.map((t) => t.utilization);
-  const filteredMachines = machines.filter(m => 
-    m.name.toLowerCase().includes(searchEquipment.toLowerCase()) || 
-    m.id.toLowerCase().includes(searchEquipment.toLowerCase()) || 
-    m.type.toLowerCase().includes(searchEquipment.toLowerCase()) || 
+  const filteredMachines = machines.filter(m =>
+    m.name.toLowerCase().includes(searchEquipment.toLowerCase()) ||
+    m.id.toLowerCase().includes(searchEquipment.toLowerCase()) ||
+    m.type.toLowerCase().includes(searchEquipment.toLowerCase()) ||
     m.status.toLowerCase().includes(searchEquipment.toLowerCase())
   );
 
@@ -181,17 +181,16 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
       >
-        <div>
-
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-            Mining Operations Dashboard
-          </h1>
-          <p className="text-sm mt-1" style={{ color: "var(--color-text-secondary)" }}>
-            Executive Command Centre — Real-time operational intelligence across all mining zones.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs tabular-nums" style={{ color: "var(--color-text-muted)" }}>
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
+              Mining Operations Dashboard
+            </h1>
+            <p className="text-sm mt-1" style={{ color: "var(--color-text-secondary)" }}>
+              Executive Command Centre • Real-time operational intelligence across all mining zones.
+            </p>
+          </div>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <span className="text-xs tabular-nums hidden sm:inline" style={{ color: "var(--color-text-muted)" }}>
             Last update: {lastUpdate.toLocaleTimeString()}
           </span>
           <button
@@ -202,6 +201,14 @@ export default function DashboardPage() {
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
             Refresh
           </button>
+
+          {/* Upper Right Circular User Avatar Only */}
+          <div
+            title="Vineeta (v.admin@mining.app)"
+            className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-sm shadow-sm cursor-pointer hover:scale-105 transition-transform"
+          >
+            V
+          </div>
         </div>
       </motion.div>
 
@@ -353,9 +360,9 @@ export default function DashboardPage() {
           </div>
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input 
-              type="text" 
-              placeholder="Search equipment..." 
+            <input
+              type="text"
+              placeholder="Search equipment..."
               value={searchEquipment}
               onChange={(e) => setSearchEquipment(e.target.value)}
               className="pl-9 pr-4 py-1.5 text-sm rounded-lg border outline-none focus:ring-2 focus:ring-amber-500/20 bg-white"
@@ -448,7 +455,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <p className="text-[10px] text-center sm:text-right leading-relaxed max-w-lg" style={{ color: "var(--color-text-muted)" }}>
-            © 2025 Mining Intelligence Platform. All rights reserved. Developed by Vineeta — AI Rock Classification Module & Mining Operations Dashboard.
+            © 2025 Mining Intelligence Platform. All rights reserved. Developed by Vineeta • AI Rock Classification Module & Mining Operations Dashboard.
           </p>
         </div>
       </footer>
