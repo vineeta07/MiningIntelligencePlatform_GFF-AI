@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   Mountain,
   Gauge,
@@ -181,15 +182,21 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
       >
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              Mining Operations Dashboard
-            </h1>
-            <p className="text-sm mt-1" style={{ color: "var(--color-text-secondary)" }}>
-              Executive Command Centre • Real-time operational intelligence across all mining zones.
-            </p>
-          </div>
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
+            Mining Operations Dashboard
+          </h1>
+          <p className="text-sm mt-1" style={{ color: "var(--color-text-secondary)" }}>
+            Executive Command Centre • Real-time operational intelligence across all mining zones.
+          </p>
+        </div>
         <div className="flex items-center gap-3 sm:gap-4">
+          <Link
+            href="/home"
+            className="flex items-center gap-2 px-3.5 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-xs rounded-xl hover:bg-amber-500/20 transition-all"
+          >
+            <span>Platform Homepage & Guide</span>
+          </Link>
           <span className="text-xs tabular-nums hidden sm:inline" style={{ color: "var(--color-text-muted)" }}>
             Last update: {lastUpdate.toLocaleTimeString()}
           </span>
@@ -202,12 +209,12 @@ export default function DashboardPage() {
             Refresh
           </button>
 
-          {/* Upper Right Circular User Avatar Only */}
+          {/* Direct Access Guest Avatar */}
           <div
-            title="Vineeta (v.admin@mining.app)"
-            className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-sm shadow-sm cursor-pointer hover:scale-105 transition-transform"
+            title="Guest Administrator (Direct Access Active)"
+            className="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs shadow-sm cursor-pointer hover:scale-105 transition-transform"
           >
-            V
+            GA
           </div>
         </div>
       </motion.div>
@@ -455,7 +462,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <p className="text-[10px] text-center sm:text-right leading-relaxed max-w-lg" style={{ color: "var(--color-text-muted)" }}>
-            © 2025 Mining Intelligence Platform. All rights reserved. Developed by Vineeta • AI Rock Classification Module & Mining Operations Dashboard.
+            © 2025 Mining Intelligence Platform. All rights reserved. Developed by Mining Engineering Group • Executive Operations Dashboard.
           </p>
         </div>
       </footer>
